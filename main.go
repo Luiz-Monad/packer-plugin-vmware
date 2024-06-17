@@ -7,15 +7,14 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hashicorp/packer-plugin-sdk/plugin"
-
+	"github.com/hashicorp/packer-plugin-vmware/builder"
 	"github.com/hashicorp/packer-plugin-vmware/builder/vmware/iso"
 	"github.com/hashicorp/packer-plugin-vmware/builder/vmware/vmx"
 	"github.com/hashicorp/packer-plugin-vmware/version"
 )
 
 func main() {
-	pps := plugin.NewSet()
+	pps := builder.NewSet()
 	pps.RegisterBuilder("iso", new(iso.Builder))
 	pps.RegisterBuilder("vmx", new(vmx.Builder))
 	pps.SetVersion(version.PluginVersion)

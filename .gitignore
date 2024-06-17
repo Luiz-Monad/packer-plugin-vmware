@@ -5,3 +5,6 @@ example/builds/*/
 .DS_Store
 .docs
 crash.log
+
+/packer_cache
+__debug_bin*

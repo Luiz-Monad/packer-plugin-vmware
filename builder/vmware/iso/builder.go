@@ -18,13 +18,21 @@ import (
 )
 
 type Builder struct {
-	config Config
-	runner multistep.Runner
+	isPrepared bool
+	baseConfig Config
+	config     Config
+	runner     multistep.Runner
 }
 
 func (b *Builder) ConfigSpec() hcldec.ObjectSpec { return b.config.FlatMapstructure().HCL2Spec() }
 
 func (b *Builder) Prepare(raws ...interface{}) ([]string, []string, error) {
+	if !b.isPrepared {
+		b.baseConfig = b.config
+		b.isPrepared = true
+	} else {
+		b.config = b.baseConfig
+	}
 	warnings, errs := b.config.Prepare(raws...)
 	if errs != nil {
 		return nil, warnings, errs
